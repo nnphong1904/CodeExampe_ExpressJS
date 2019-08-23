@@ -7,7 +7,10 @@ var controllers=require('../controllers/user.controllers');
 
 router.get('/',controllers.index);
 
-
+router.get('/cookie',function(req,res){
+    res.cookie('user-id',123456);
+    res.send('Hello');
+});
 
 router.get('/search',controllers.search);
 
