@@ -1,17 +1,19 @@
 var db=require('../db');
-
+var md5 = require('md5');
 module.exports.login=function(req,res){
     res.render('auth/login');
 }
 module.exports.postLogin=function(req,res){
     var email=req.body.email;
     var password=req.body.password;
+    var hashedpassword= md5(password);
+    console.log(hashedpassword);
     var user=db.get('users').find({email:email}).value();
     var errors=[];
     if (!user){
         errors.push('User does not exist!');
     }
-    else if (user.password!==password){
+    else if (user.password!==hashedpassword){
         errors.push('Password is wrong!');
     }
     if (errors.length>0){
@@ -21,5 +23,8 @@ module.exports.postLogin=function(req,res){
         });
         return;
     }   
+
+    res.cookie('userId',user.id);
     res.redirect('/user');
+    console.log('redirected...');
 }

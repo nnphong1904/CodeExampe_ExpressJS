@@ -12,6 +12,7 @@ app.use(express.static('public'));
 
 var userRoute=require('./routes/user.routes');
 var authRoute=require('./routes/login.routes');
+var authRequiredMiddleware=require('./middleware/auth.middileware');
 
 var db=require('./db.js');
 /**set the view engine and the views folder**/
@@ -25,7 +26,7 @@ app.get('/',function(request,respone){
         });
 });
 
-app.use('/user',userRoute);
+app.use('/user',authRequiredMiddleware.requiredAuth,userRoute);
 app.use('/auth',authRoute);
 app.listen(port,function(){
     console.log('Server listening on port '+ port);
