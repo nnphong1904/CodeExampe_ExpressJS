@@ -2,15 +2,21 @@
   "users": [
     {
       "id": "1",
-      "name": "chia "
+      "name": "chia ",
+      "email": "nnphong@apcs.vn",
+      "password": "123456"
     },
     {
       "id": "2",
-      "name": "bia"
+      "name": "bia",
+      "email": "vhngan@apcs.vn",
+      "password": "123456"
     },
     {
       "name": "Teo",
-      "id": "Y80upnQJH"
+      "id": "Y80upnQJH",
+      "email": "nnteo@apcs.vn",
+      "password": "123456"
     }
   ]
 }
