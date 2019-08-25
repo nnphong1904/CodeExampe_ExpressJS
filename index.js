@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-app.use(cookieParser());
+app.use(cookieParser('adsfasdjdhaskdj001sd2'));
 
 app.use(express.static('public'));
 
