@@ -17,7 +17,6 @@ module.exports.search=function(req,res){
         users: matchedUser,
         q:q
     });
-
 };
 
 module.exports.create=function(req,res){

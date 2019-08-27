@@ -1,9 +1,9 @@
 
 require('dotenv').config();
-console.log(process.env.SESSION_SECRETE);
+
 var express=require('express');
 var app=express();
-var port=8080;
+var port=9000;
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 
@@ -15,6 +15,7 @@ app.use(express.static('public'));
 
 var userRoute=require('./routes/user.routes');
 var authRoute=require('./routes/login.routes');
+var productRoute=require('./routes/product.routes');
 var authRequiredMiddleware=require('./middleware/auth.middileware');
 
 var db=require('./db.js');
@@ -31,6 +32,7 @@ app.get('/',function(request,respone){
 
 app.use('/user',authRequiredMiddleware.requiredAuth,userRoute);
 app.use('/auth',authRoute);
+app.use('/product',productRoute);
 app.listen(port,function(){
     console.log('Server listening on port '+ port);
 });

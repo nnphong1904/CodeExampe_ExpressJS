@@ -7,7 +7,7 @@ module.exports.postLogin=function(req,res){
     var email=req.body.email;
     var password=req.body.password;
     var hashedpassword= md5(password);
-    console.log(hashedpassword);
+ 
     var user=db.get('users').find({email:email}).value();
     var errors=[];
     if (!user){
@@ -26,5 +26,4 @@ module.exports.postLogin=function(req,res){
 
     res.cookie('userId',user.id,{signed:true});
     res.redirect('/user');
-    console.log('redirected...');
 }
