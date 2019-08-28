@@ -64,10 +64,10 @@ block content
     //- pagination-------------------------------------------------------------
     nav(aria-label='Page navigation example', class='mt-5 mb-5')
         ul.pagination.justify-content-end
-            li.page-item
-             a.page-link Previous
+            li.page-item.disabled(id='previous-btn')
+             a.page-link(onclick='previousFunction()') Previous
             each index in paginationIndex   
                 li.page-item
                 a.page-link(href='/product?page='+index, id='pagination-btn')=index
             li.page-item(id='next-btn')
-              a.page-link(onclick='nextFunction()',id='next-btn') Next
+              a.page-link(onclick='nextFunction()') Next
