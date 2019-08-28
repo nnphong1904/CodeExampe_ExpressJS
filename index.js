@@ -32,7 +32,7 @@ app.get('/',function(request,respone){
 
 app.use('/user',authRequiredMiddleware.requiredAuth,userRoute);
 app.use('/auth',authRoute);
-app.use('/product',productRoute);
+app.use('/product',authRequiredMiddleware.requiredAuth,productRoute);
 app.listen(port,function(){
     console.log('Server listening on port '+ port);
 });
