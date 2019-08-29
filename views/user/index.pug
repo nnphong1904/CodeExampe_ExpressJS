@@ -7,12 +7,15 @@ block content
             input(type="text", name="q", id="input-name",value=q, class="form-control mr-2")
             button(id="submit-btn", class="btn btn-primary") Search
     table.table
+        th Avatar
         th Name
         th Phone
         th Action
 
         each val in users
          tr
+            td
+                img(src=val.avatar , class="rounded", width="64")
             td=val.name
             td=val.phone
             td 

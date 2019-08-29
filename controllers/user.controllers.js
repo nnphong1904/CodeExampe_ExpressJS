@@ -1,4 +1,5 @@
 var db=require('../db');
+
 var shortid=require('shortid');
 
 
@@ -33,6 +34,7 @@ module.exports.view=function(req,res){
 
 module.exports.postCreate=function(req,res){
     req.body.id=shortid.generate();
+    req.body.avatar=req.file.path.split('\\').slice(1).join('\\');
     var errors=[];
     if (!req.body.name){
         errors.push('Name is empty');
