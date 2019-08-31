@@ -1,11 +1,18 @@
 var db=require('../db');
 
 var shortid=require('shortid');
+var cartControllers=require('./cart.controller');   
 
 
 module.exports.index=function(req,res){
+    var obj=db.get('sessions').find({sessionId:req.signedCookies.sessionId}).get('cart').value();
+        var sum=0;
+            for (var value in obj){
+                sum+=obj[value];
+            }
     res.render('user/index',{
-        users: db.get('users').value()
+        users: db.get('users').value(),
+        itemInCart:sum
     })
 };
 
@@ -14,21 +21,38 @@ module.exports.search=function(req,res){
     var matchedUser=db.get('users').value().filter(function(user){
         return user.name.toLowerCase().indexOf(q.toLowerCase()) !==-1;
     })
+    var obj=db.get('sessions').find({sessionId:req.signedCookies.sessionId}).get('cart').value();
+        var sum=0;
+            for (var value in obj){
+                sum+=obj[value];
+            }
     res.render('user/index',{
         users: matchedUser,
-        q:q
+        q:q,
+        itemInCart:sum
     });
 };
 
 module.exports.create=function(req,res){
-    res.render('user/create');
+    var obj=db.get('sessions').find({sessionId:req.signedCookies.sessionId}).get('cart').value();
+        var sum=0;
+            for (var value in obj){
+                sum+=obj[value];
+            }
+    res.render('user/create',{itemInCart:sum});
 };
 
 module.exports.view=function(req,res){
+    var obj=db.get('sessions').find({sessionId:req.signedCookies.sessionId}).get('cart').value();
+        var sum=0;
+            for (var value in obj){
+                sum+=obj[value];
+            }
     var id= req.params.id;
      var user=db.get('users').find({id:id}).value();
     res.render('user/view',{
-        user:user
+        user:user,
+        itemInCart:sum
     });
 };
 

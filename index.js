@@ -13,10 +13,15 @@ app.use(cookieParser(process.env.SESSION_SECRETE));
 
 app.use(express.static('public'));
 
+
 var userRoute=require('./routes/user.routes');
 var authRoute=require('./routes/login.routes');
 var productRoute=require('./routes/product.routes');
 var authRequiredMiddleware=require('./middleware/auth.middileware');
+var sessionMidleware=require('./middleware/session.middileware');
+var cartRoute=require('./routes/cart.routes');
+
+app.use(sessionMidleware.setSessionId);
 
 var db=require('./db.js');
 /**set the view engine and the views folder**/
@@ -32,7 +37,8 @@ app.get('/',function(request,respone){
 
 app.use('/user',authRequiredMiddleware.requiredAuth,userRoute);
 app.use('/auth',authRoute);
-app.use('/product',authRequiredMiddleware.requiredAuth,productRoute);
+app.use('/product',productRoute);
+app.use('/cart',cartRoute);
 app.listen(port,function(){
     console.log('Server listening on port '+ port);
 });

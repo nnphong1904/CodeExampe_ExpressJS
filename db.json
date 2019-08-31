@@ -692,5 +692,17 @@
       "image": "https://i.pinimg.com/564x/6a/87/4a/6a874a3a99fb06d305bf8931c4f30129.jpg",
       "description": "leo odio condimentum id luctus nec molestie sed justo pellentesque viverra pede ac diam cras"
     }
+  ],
+  "sessions": [
+    {
+      "sessionId": "tvEYGNbYs",
+      "cart": {
+        "4fe892f0-aca1-44b1-92dd-ad177e9c9d4d": 2,
+        "41ec03d9-f854-43a5-b66b-4eac0e9e2e27": 14,
+        "e4a2f0f5-c848-4fab-bf40-0cbaac696a76": 7,
+        "a3125f94-e4fa-43af-bc0f-f05b0cd4dbda": 10,
+        "205c0680-e15e-4417-a26a-4adc4abda1de": 1
+      }
+    }
   ]
 }

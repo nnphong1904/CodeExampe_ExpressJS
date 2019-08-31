@@ -3,7 +3,7 @@ html
         title User
         link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css")
         link(rel="stylesheet", href="/style/style.css")
-        script(src="/productFnc/product.js")
+       
     body
         nav.navbar.navbar-expand-lg.navbar-light.bg-light
             a.navbar-brand(href='#') CoderX
@@ -17,6 +17,12 @@ html
                     a.nav-link(href='/user') Features
                  li.nav-item
                     a.nav-link(href='/product') Products
+                 li.nav-item.d-flex
+                    a.nav-link(href='/cart',id='cart-feature') Cart
+                     if (itemInCart>0)
+                      span=' '+'('+itemInCart+')'
+                    
+                 
             if (user)
                 p=user.name
             

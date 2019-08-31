@@ -1,3 +1,5 @@
+
+/**function for next and previous button in pagination bar in product page**/
 var nextFunction=function(){
         var previousBtn=document.getElementById('previous-btn');
                 previousBtn.classList.remove('disabled');
@@ -33,3 +35,5 @@ var previousFunction=function(){
                 }
         });
 }
+
+

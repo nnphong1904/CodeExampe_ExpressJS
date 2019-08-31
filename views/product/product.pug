@@ -9,28 +9,28 @@ block content
                 .card-body
                     h5.card-title=products[0].name
                     p.card-text=products[0].description
-                    a.btn.btn-primary(href='#') Go somewhere
+                    a.btn.btn-primary.add-btn(href='/cart/add/'+products[0].id) Add to cart
             .card(style='width: 18rem;',class='col-lg-3 col-sm-6 col-12')
              if (products[1])    
                 img.card-img-top(src=products[1].image, alt='...')
                 .card-body
                     h5.card-title=products[1].name
                     p.card-text=products[1].description
-                    a.btn.btn-primary(href='#') Go somewhere
+                    a.btn.btn-primary.add-btn(href='/cart/add/'+products[1].id) Add to cart
             .card(style='width: 18rem;',class='col-lg-3 col-sm-6 col-12')
              if (products[2])
                 img.card-img-top(src=products[2].image, alt='...')
                 .card-body
                     h5.card-title=products[2].name
                     p.card-text=products[2].description
-                    a.btn.btn-primary(href='#') Go somewhere
+                    a.btn.btn-primary.add-btn(href='/cart/add/'+products[2].id) Add to cart
             .card(style='width: 18rem;',class='col-lg-3 col-sm-6 col-12')
              if (products[3])
                 img.card-img-top(src=products[3].image, alt='...')
                 .card-body
                     h5.card-title=products[3].name
                     p.card-text=products[3].description
-                    a.btn.btn-primary(href='#') Go somewhere
+                    a.btn.btn-primary.add-btn(href='/cart/add/'+products[3].id) Add to cart
         //- Second ROWW --------------------------------------
         .row
             .card(style='width: 18rem;',class='col-lg-3 col-sm-6 col-12')
@@ -39,28 +39,28 @@ block content
                 .card-body
                     h5.card-title=products[4].name
                     p.card-text=products[4].description
-                    a.btn.btn-primary(href='#') Go somewhere
+                    a.btn.btn-primary.add-btn(href='/cart/add/'+products[4].id) Add to cart
             .card(style='width: 18rem;',class='col-lg-3 col-sm-6 col-12')
              if (products[5])
                 img.card-img-top(src=products[5].image, alt='...')
                 .card-body
                     h5.card-title=products[5].name
                     p.card-text=products[5].description
-                    a.btn.btn-primary(href='#') Go somewhere
+                    a.btn.btn-primary.add-btn(href='/cart/add/'+products[5].id) Add to cart
             .card(style='width: 18rem;',class='col-lg-3 col-sm-6 col-12')
              if (products[6])
                 img.card-img-top(src=products[6].image, alt='...')
                 .card-body
                     h5.card-title=products[6].name
                     p.card-text=products[6].description
-                    a.btn.btn-primary(href='#') Go somewhere
+                    a.btn.btn-primary.add-btn(href='/cart/add/'+products[6].id) Add to cart
             .card(style='width: 18rem;',class='col-lg-3 col-sm-6 col-12')
              if (products[7])
                 img.card-img-top(src=products[7].image, alt='...')
                 .card-body
                     h5.card-title=products[7].name
                     p.card-text=products[7].description
-                    a.btn.btn-primary(href='#') Go somewhere
+                    a.btn.btn-primary.add-btn(href='/cart/add/'+products[7].id) Add to cart
     //- pagination-------------------------------------------------------------
     nav(aria-label='Page navigation example', class='mt-5 mb-5')
         ul.pagination.justify-content-end
@@ -71,3 +71,4 @@ block content
                 a.page-link(href='/product?page='+index, id='pagination-btn')=index
             li.page-item(id='next-btn')
               a.page-link(onclick='nextFunction()') Next
+    script(src="/productFnc/product.js")
