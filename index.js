@@ -6,6 +6,7 @@ var app=express();
 var port=9000;
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var Cart=require('./public/productFnc/cart');
 
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
@@ -31,8 +32,11 @@ app.set('view engine', 'pug');
 /*****************************/
 
 app.get('/',function(request,respone){
+    var cart=new Cart(request.signedCookies.sessionId);
+    var currentItemsInCart=cart.countItem();
         respone.render('index',{
-            name: 'Phong'
+            name: 'Phong',
+            itemInCart:currentItemsInCart
         });
 });
 
