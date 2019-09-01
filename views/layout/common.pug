@@ -19,8 +19,9 @@ html
                     a.nav-link(href='/product') Products
                  li.nav-item.d-flex
                     a.nav-link(href='/cart',id='cart-feature') Cart
-                     if (itemInCart>0)
+                     if (itemInCart>=0)
                       span=' '+'('+itemInCart+')'
+                     
                     
                  
             if (user)

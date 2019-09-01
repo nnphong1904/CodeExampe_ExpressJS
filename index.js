@@ -17,9 +17,10 @@ app.use(express.static('public'));
 var userRoute=require('./routes/user.routes');
 var authRoute=require('./routes/login.routes');
 var productRoute=require('./routes/product.routes');
+var cartRoute=require('./routes/cart.routes');
 var authRequiredMiddleware=require('./middleware/auth.middileware');
 var sessionMidleware=require('./middleware/session.middileware');
-var cartRoute=require('./routes/cart.routes');
+
 
 app.use(sessionMidleware.setSessionId);
 

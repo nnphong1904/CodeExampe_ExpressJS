@@ -1,0 +1,15 @@
+extends ../layout/common.pug
+block content
+    h1.mb-5 Cart
+    .container  
+        .row
+             each item in listItems
+                .card.pr-2.col-lg-3.col-sm-6.col-12.mb-2(style='width: 18rem;')
+                    img.card-img-top(src=item.image, alt='...')
+                    .card-body
+                        h5.card-title=item.name
+                        p.card-text=item.description
+                        p
+                            span='Amount: '+item.amount 
+                            
+                

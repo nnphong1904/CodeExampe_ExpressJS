@@ -1,6 +1,20 @@
 var db=require('../db');
+var Cart=require('../public/productFnc/cart');
 module.exports.index=function(req,res,next){
-    res.send('Developing....');
+    var cart= new Cart(req.signedCookies.sessionId);
+    var itemInCart= cart.countItem();
+    var listIdOfItems=db.get('sessions').find({sessionId:req.signedCookies.sessionId}).get('cart').value();
+
+    var listItems=[];
+        for (itemId in listIdOfItems){
+                var item=db.get('products').find({id:itemId}).value();
+                item.amount=listIdOfItems[itemId];                   
+                listItems.push(item);
+        }
+    res.render('cart/cart',{
+        itemInCart:itemInCart,
+        listItems:listItems
+    });
 }
 module.exports.addToCart=function(req,res,next){
     var productId=req.params.productId;

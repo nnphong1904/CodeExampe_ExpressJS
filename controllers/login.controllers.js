@@ -1,13 +1,10 @@
 var db=require('../db');
 var md5 = require('md5');
-var cartControllers=require('./cart.controller');
+var Cart=require('../public/productFnc/cart');
 module.exports.login=function(req,res){
-    var obj=db.get('sessions').find({sessionId:req.signedCookies.sessionId}).get('cart').value();
-        var sum=0;
-            for (var value in obj){
-                sum+=obj[value];
-            }
-    res.render('auth/login',{itemsInCart:sum});
+    var cart= new Cart(req.signedCookies.sessionId);
+    var tmpSum=cart.countItem();
+    res.render('auth/login',{itemsInCart:sum,itemInCart:tmpSum});
 }
 module.exports.postLogin=function(req,res){
     var email=req.body.email;

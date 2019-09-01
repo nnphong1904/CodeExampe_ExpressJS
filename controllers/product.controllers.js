@@ -1,11 +1,11 @@
 var db=require('../db');
+var Cart=require('../public/productFnc/cart');
+
 
 module.exports.index=function(req,res){
-    var obj=db.get('sessions').find({sessionId:req.signedCookies.sessionId}).get('cart').value();
-        var sum=0;
-            for (var value in obj){
-                sum+=obj[value];
-            }
+    var cart= new Cart(req.signedCookies.sessionId);
+    var tmpSum=cart.countItem();
+   
     var page=parseInt(req.query.page)||1;
     var start=(page-1)*8;
     var end=start+8;
@@ -14,6 +14,6 @@ module.exports.index=function(req,res){
     res.render('product/product',{
         products:products,
         paginationIndex: paginationIndex,
-        itemInCart:sum
+        itemInCart:tmpSum
     });
 }

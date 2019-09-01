@@ -1,58 +1,47 @@
 var db=require('../db');
 
 var shortid=require('shortid');
-var cartControllers=require('./cart.controller');   
+var Cart=require('../public/productFnc/cart');
 
 
 module.exports.index=function(req,res){
-    var obj=db.get('sessions').find({sessionId:req.signedCookies.sessionId}).get('cart').value();
-        var sum=0;
-            for (var value in obj){
-                sum+=obj[value];
-            }
+    var cart= new Cart(req.signedCookies.sessionId);
+    var tmpSum=cart.countItem();
     res.render('user/index',{
         users: db.get('users').value(),
-        itemInCart:sum
+        itemInCart:tmpSum
     })
 };
 
 module.exports.search=function(req,res){
+    var cart= new Cart(req.signedCookies.sessionId);
+    var tmpSum=cart.countItem();
     var q=req.query.q;
     var matchedUser=db.get('users').value().filter(function(user){
         return user.name.toLowerCase().indexOf(q.toLowerCase()) !==-1;
     })
-    var obj=db.get('sessions').find({sessionId:req.signedCookies.sessionId}).get('cart').value();
-        var sum=0;
-            for (var value in obj){
-                sum+=obj[value];
-            }
+   
     res.render('user/index',{
         users: matchedUser,
         q:q,
-        itemInCart:sum
+        itemInCart:tmpSum
     });
 };
 
 module.exports.create=function(req,res){
-    var obj=db.get('sessions').find({sessionId:req.signedCookies.sessionId}).get('cart').value();
-        var sum=0;
-            for (var value in obj){
-                sum+=obj[value];
-            }
-    res.render('user/create',{itemInCart:sum});
+    var cart= new Cart(req.signedCookies.sessionId);
+    var tmpSum=cart.countItem();
+    res.render('user/create',{itemInCart:tmpSum});
 };
 
 module.exports.view=function(req,res){
-    var obj=db.get('sessions').find({sessionId:req.signedCookies.sessionId}).get('cart').value();
-        var sum=0;
-            for (var value in obj){
-                sum+=obj[value];
-            }
+    var cart= new Cart(req.signedCookies.sessionId);
+    var tmpSum=cart.countItem();
     var id= req.params.id;
      var user=db.get('users').find({id:id}).value();
     res.render('user/view',{
         user:user,
-        itemInCart:sum
+        itemInCart:tmpSum
     });
 };
 
