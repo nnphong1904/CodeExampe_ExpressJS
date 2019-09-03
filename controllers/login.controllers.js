@@ -4,7 +4,7 @@ var Cart=require('../public/productFnc/cart');
 module.exports.login=function(req,res){
     var cart= new Cart(req.signedCookies.sessionId);
     var tmpSum=cart.countItem();
-    res.render('auth/login',{itemsInCart:sum,itemInCart:tmpSum});
+    res.render('auth/login',{itemInCart:tmpSum});
 }
 module.exports.postLogin=function(req,res){
     var email=req.body.email;
