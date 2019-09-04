@@ -1,13 +1,16 @@
-var db=require('../../db');
+
+var Session=require('../../modules/session.module');
 function Cart(sessionId){
     this.sessionId=sessionId
 }
-Cart.prototype.countItem=function(){
-    var obj=db.get('sessions').find({sessionId:this.sessionId}).get('cart').value();
+Cart.prototype.countItem=async function(){
+    var obj=(await Session.find({sessionId:this.sessionId}))[0].cart;
+  
         var sum=0;
             for (var value in obj){
                 sum+=obj[value];
             }
+
     return sum;
 }
 module.exports=Cart;

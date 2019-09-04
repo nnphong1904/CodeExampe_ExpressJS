@@ -1,11 +1,18 @@
 var db=require('../db');
+var Session=require('../modules/session.module');
 var shortid=require('shortid');
 
-module.exports.setSessionId=function(req,res,next){
+module.exports.setSessionId=async function(req,res,next){
     var sessionId=shortid.generate();
+    var sessionData={
+        sessionId:sessionId,
+        cart:{}
+    };
+    var newSession=await(new Session(sessionData));
     if (!req.signedCookies.sessionId){
         res.cookie('sessionId',sessionId,{signed:true});
-        db.get('sessions').push({sessionId:sessionId}).write();
+        // db.get('sessions').push({sessionId:sessionId}).write();
+        await newSession.save();
     }
     next();
 }
