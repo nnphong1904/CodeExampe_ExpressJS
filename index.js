@@ -8,6 +8,9 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var Cart=require('./public/productFnc/cart');
 var csrf = require('csurf');
+var mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGO_URL,{useNewUrlParser:true});
 app.use(bodyParser.json()) // for parsing application/json
 
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
@@ -26,16 +29,14 @@ var sessionMidleware=require('./middleware/session.middileware');
 
 
 app.use(sessionMidleware.setSessionId);
-
-var db=require('./db.js');
 /**set the view engine and the views folder**/
 app.set('views', './views');    
 app.set('view engine', 'pug');
 /*****************************/
 
-app.get('/',function(request,respone){
+app.get('/',async function(request,respone){
     var cart=new Cart(request.signedCookies.sessionId);
-    var currentItemsInCart=cart.countItem();
+    var currentItemsInCart=await cart.countItem();
         respone.render('index',{
             name: 'Phong',
             itemInCart:currentItemsInCart

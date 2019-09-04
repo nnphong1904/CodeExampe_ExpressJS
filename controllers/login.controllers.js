@@ -1,4 +1,5 @@
-var db=require('../db');
+
+var User=require('../modules/user.module');
 var md5 = require('md5');
 var Cart=require('../public/productFnc/cart');
 module.exports.login=function(req,res){
@@ -6,13 +7,12 @@ module.exports.login=function(req,res){
     var tmpSum=cart.countItem();
     res.render('auth/login',{itemInCart:tmpSum});
 }
-module.exports.postLogin=function(req,res){
+module.exports.postLogin=async function(req,res){
     var email=req.body.email;
     var password=req.body.password;
     var hashedpassword= md5(password);
-   
- 
-    var user=db.get('users').find({email:email}).value();
+
+    var user=(await User.find({email:email}))[0];
     var errors=[];
     if (!user){
         errors.push('User does not exist!');

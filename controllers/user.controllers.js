@@ -1,23 +1,25 @@
-var db=require('../db');
 
-var shortid=require('shortid');
+var User=require('../modules/user.module');
+
 var Cart=require('../public/productFnc/cart');
 
 
-module.exports.index=function(req,res){
+module.exports.index=async function(req,res){
+    var users= await User.find();
     var cart= new Cart(req.signedCookies.sessionId);
-    var tmpSum=cart.countItem();
+    var tmpSum=await cart.countItem();
     res.render('user/index',{
-        users: db.get('users').value(),
+        users: users,
         itemInCart:tmpSum
     })
 };
 
-module.exports.search=function(req,res){
+module.exports.search=async function(req,res){
+    var users= await User.find();
     var cart= new Cart(req.signedCookies.sessionId);
-    var tmpSum=cart.countItem();
+    var tmpSum=await cart.countItem();
     var q=req.query.q;
-    var matchedUser=db.get('users').value().filter(function(user){
+    var matchedUser=users.filter(function(user){
         return user.name.toLowerCase().indexOf(q.toLowerCase()) !==-1;
     })
    
@@ -28,17 +30,20 @@ module.exports.search=function(req,res){
     });
 };
 
-module.exports.create=function(req,res){
+module.exports.create=async function(req,res){
     var cart= new Cart(req.signedCookies.sessionId);
-    var tmpSum=cart.countItem();
+    var tmpSum=await cart.countItem();
     res.render('user/create',{itemInCart:tmpSum});
 };
 
-module.exports.view=function(req,res){
-    var cart= new Cart(req.signedCookies.sessionId);
-    var tmpSum=cart.countItem();
+module.exports.view=async function(req,res){
     var id= req.params.id;
-     var user=db.get('users').find({id:id}).value();
+    var user= (await User.find({_id:id}))[0];
+    console.log(user);
+    var cart= new Cart(req.signedCookies.sessionId);
+    var tmpSum=await cart.countItem();
+   
+
     res.render('user/view',{
         user:user,
         itemInCart:tmpSum
@@ -46,7 +51,6 @@ module.exports.view=function(req,res){
 };
 
 module.exports.postCreate=function(req,res){
-    req.body.id=shortid.generate();
     req.body.avatar=req.file.path.split('\\').slice(1).join('\\');
     var errors=[];
     if (!req.body.name){
@@ -62,6 +66,7 @@ module.exports.postCreate=function(req,res){
         });
         return;
     }
-    db.get('users').push(req.body).write();
+    var newUser=new User(req.body);
+    newUser.save();
     res.redirect('/user'); 
 };
