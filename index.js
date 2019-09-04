@@ -18,7 +18,7 @@ app.use(cookieParser(process.env.SESSION_SECRETE));
 var csrfProtection = csrf({ cookie: true });
 app.use(express.static('public'));
 
-
+/**declare route**/
 var userRoute=require('./routes/user.routes');
 var authRoute=require('./routes/login.routes');
 var productRoute=require('./routes/product.routes');
@@ -42,7 +42,6 @@ app.get('/',async function(request,respone){
             itemInCart:currentItemsInCart
         });
 });
-
 app.use('/user',authRequiredMiddleware.requiredAuth,userRoute);
 app.use('/auth',authRoute);
 app.use('/product',productRoute);
