@@ -6,6 +6,7 @@ var Cart=require('../public/productFnc/cart');
 
 module.exports.index=async function(req,res){
     var users= await User.find();
+    console.log(users[2].avatar);
     var cart= new Cart(req.signedCookies.sessionId);
     var tmpSum=await cart.countItem();
     res.render('user/index',{
@@ -18,16 +19,27 @@ module.exports.search=async function(req,res){
     var users= await User.find();
     var cart= new Cart(req.signedCookies.sessionId);
     var tmpSum=await cart.countItem();
+ 
     var q=req.query.q;
-    var matchedUser=users.filter(function(user){
-        return user.name.toLowerCase().indexOf(q.toLowerCase()) !==-1;
-    })
+    var matchedUser;
    
-    res.render('user/index',{
-        users: matchedUser,
-        q:q,
-        itemInCart:tmpSum
-    });
+     if (q===''){
+        matchedUser=[]
+     }
+     else {
+        matchedUser=users.filter(function(user){
+            return user.name.toLowerCase().indexOf(q.toLowerCase()) >-1;
+        })
+     }    
+     for (user of matchedUser){
+         user.avatar='http://localhost:5000/uploads/'+ user.avatar.split('\\').slice(1);
+     }
+    
+        res.render('user/index',{
+            users: matchedUser,
+            q:q,
+            itemInCart:tmpSum
+        });
 };
 
 module.exports.create=async function(req,res){
@@ -39,7 +51,6 @@ module.exports.create=async function(req,res){
 module.exports.view=async function(req,res){
     var id= req.params.id;
     var user= (await User.find({_id:id}))[0];
-    console.log(user);
     var cart= new Cart(req.signedCookies.sessionId);
     var tmpSum=await cart.countItem();
    

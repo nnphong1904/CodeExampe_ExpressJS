@@ -1,6 +1,12 @@
 extends ../layout/common.pug
 block content
-    h1.mb-5 Product
+    h1.mb-5 Product 
+    form.form-inline.justify-content-end(action='/product/search')
+        .form-group.mx-sm-3.mb-2
+            input.form-control(type='hidden', name='page', value=currentPage)
+            input.form-control(type='text',name='name')
+        button.btn.btn-primary.mb-2(type='submit') Search
+
     .container
         .row.mb-4
             .card(style='width: 18rem;',class='col-lg-3 col-sm-6 col-12')   
@@ -62,13 +68,14 @@ block content
                     p.card-text=products[7].description
                     a.btn.btn-primary.add-btn(href='/cart/add/'+products[7].id) Add to cart
     //- pagination-------------------------------------------------------------
-    nav(aria-label='Page navigation example', class='mt-5 mb-5')
-        ul.pagination.justify-content-end
-            li.page-item.disabled(id='previous-btn')
-             a.page-link(onclick='previousFunction()') Previous
-            each index in paginationIndex   
-                li.page-item
-                a.page-link(href='/product?page='+index, id='pagination-btn')=index
-            li.page-item(id='next-btn')
-              a.page-link(onclick='nextFunction()') Next
-    script(src="/productFnc/product.js")
+    if (paginationIndex)
+        nav(aria-label='Page navigation example', class='mt-5 mb-5')
+            ul.pagination.justify-content-end
+                li.page-item.disabled(id='previous-btn')
+                a.page-link(onclick='previousFunction()') Previous
+                each index in paginationIndex   
+                    li.page-item
+                    a.page-link(href='/product?page='+index, id='pagination-btn')=index
+                li.page-item(id='next-btn')
+                a.page-link(onclick='nextFunction()') Next
+        script(src="/productFnc/product.js")
