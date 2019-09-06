@@ -11,7 +11,6 @@ module.exports.setSessionId=async function(req,res,next){
     var newSession=await(new Session(sessionData));
     if (!req.signedCookies.sessionId){
         res.cookie('sessionId',sessionId,{signed:true});
-        // db.get('sessions').push({sessionId:sessionId}).write();
         await newSession.save();
     }
     next();

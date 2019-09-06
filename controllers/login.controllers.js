@@ -2,9 +2,9 @@
 var User=require('../modules/user.module');
 var md5 = require('md5');
 var Cart=require('../public/productFnc/cart');
-module.exports.login=function(req,res){
+module.exports.login=async function(req,res){
     var cart= new Cart(req.signedCookies.sessionId);
-    var tmpSum=cart.countItem();
+    var tmpSum=await cart.countItem();
     res.render('auth/login',{itemInCart:tmpSum});
 }
 module.exports.postLogin=async function(req,res){

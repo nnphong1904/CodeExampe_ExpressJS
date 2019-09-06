@@ -24,6 +24,7 @@ var authRoute=require('./routes/login.routes');
 var productRoute=require('./routes/product.routes');
 var cartRoute=require('./routes/cart.routes');
 var transferRoute=require('./routes/transfer.routes');
+var productAPIRoute=require('./api/routes/products.routes');
 var authRequiredMiddleware=require('./middleware/auth.middileware');
 var sessionMidleware=require('./middleware/session.middileware');
 
@@ -34,19 +35,21 @@ app.set('views', './views');
 app.set('view engine', 'pug');
 /*****************************/
 
-app.get('/',async function(request,respone){
+app.get('/', async function(request,respone){
     var cart=new Cart(request.signedCookies.sessionId);
-    var currentItemsInCart=await cart.countItem();
-        respone.render('index',{
-            name: 'Phong',
-            itemInCart:currentItemsInCart
+    var  currentItemsInCart=await cart.countItem()
+            respone.render('index',{
+                name: 'Phong',
+                itemInCart:currentItemsInCart
         });
+      
 });
 app.use('/user',authRequiredMiddleware.requiredAuth,userRoute);
 app.use('/auth',authRoute);
 app.use('/product',productRoute);
 app.use('/cart',cartRoute);
 app.use('/transfer',authRequiredMiddleware.requiredAuth,csrfProtection,transferRoute);
+app.use('/api/product',productAPIRoute);
 app.listen(port,function(){
     console.log('Server listening on port '+ port);
 });
