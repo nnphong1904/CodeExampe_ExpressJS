@@ -32,7 +32,7 @@ module.exports.search=async function(req,res){
         })
      }    
      for (user of matchedUser){
-         user.avatar='http://localhost:5000/uploads/'+ user.avatar.split('\\').slice(1);
+         user.avatar='/uploads/'+ user.avatar.split('\\').slice(1);
      }
     
         res.render('user/index',{
