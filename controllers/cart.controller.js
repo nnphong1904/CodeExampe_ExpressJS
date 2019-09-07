@@ -30,11 +30,8 @@ module.exports.index=async function(req,res,next){
 module.exports.addToCart=async function(req,res,next){
     var productId=req.params.productId;
     var sessionId=req.signedCookies.sessionId;
-    // var count=db.get('sessions').find({sessionId:sessionId}).get('cart.'+productId,0).value();
-    // db.get('sessions').find({sessionId:sessionId}).set('cart.'+productId,count+1).write();
     var path='cart.'+productId;
     var count= (await Session.find({sessionId:sessionId}))[0].cart[productId] || 0;
-    console.log(count);
     var productCount={
         [path]:count+1
     };

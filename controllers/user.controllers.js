@@ -6,7 +6,6 @@ var Cart=require('../public/productFnc/cart');
 
 module.exports.index=async function(req,res){
     var users= await User.find();
-    console.log(users[2].avatar);
     var cart= new Cart(req.signedCookies.sessionId);
     var tmpSum=await cart.countItem();
     res.render('user/index',{
