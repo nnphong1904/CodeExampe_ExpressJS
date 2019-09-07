@@ -3,7 +3,7 @@ require('dotenv').config();
 
 var express=require('express');
 var app=express();
-var port=process.env.PORT || 5000;
+var port=process.env.PORT || 3000;
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var Cart=require('./public/productFnc/cart');
