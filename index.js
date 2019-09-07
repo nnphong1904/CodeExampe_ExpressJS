@@ -3,7 +3,7 @@ require('dotenv').config();
 
 var express=require('express');
 var app=express();
-var port=process.env.PORT ;
+var port=process.env.port|| 3000;
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var Cart=require('./public/productFnc/cart');
@@ -50,6 +50,7 @@ app.use('/product',productRoute);
 app.use('/cart',cartRoute);
 app.use('/transfer',authRequiredMiddleware.requiredAuth,csrfProtection,transferRoute);
 app.use('/api/product',productAPIRoute);
+console.log(port);
 app.listen(port,function(){
     console.log('Server listening on port '+ port);
 });
