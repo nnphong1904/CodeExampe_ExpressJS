@@ -4,7 +4,14 @@ var Product=require('../modules/product.module');
 module.exports.index=async function(req,res,next){
     var cart= new Cart(req.signedCookies.sessionId);
     var itemInCart= await cart.countItem();
-    var listIdOfItems=(await Session.find({sessionId:req.signedCookies.sessionId}))[0].cart;
+    var session=(await Session.find({sessionId:req.signedCookies.sessionId}))[0];
+    var listIdOfItems;
+     if (!session){
+            listIdOfItems={};
+     }
+     else{
+        listIdOfItems=(await Session.find({sessionId:req.signedCookies.sessionId}))[0].cart;
+     }
 
 
     var listItems=[];
