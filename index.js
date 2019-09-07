@@ -50,7 +50,7 @@ app.use('/product',productRoute);
 app.use('/cart',cartRoute);
 app.use('/transfer',authRequiredMiddleware.requiredAuth,csrfProtection,transferRoute);
 app.use('/api/product',productAPIRoute);
-console.log(port);
+console.log('hello');
 app.listen(port,function(){
     console.log('Server listening on port '+ port);
 });
